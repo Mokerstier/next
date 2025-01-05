@@ -18,8 +18,8 @@ export const Filter = () => {
   };
 
   return (
-    <div>
-      <h3 className="mb-2">Filter by color</h3>
+    <div className="border-y border-white pt-2 pb-4">
+      <h3 className="mb-2 font-semibold">Filter by color</h3>
       <div className="flex gap-2 flex-wrap">
         {FILTER_COLORS.map((colorId) => (
           <button
