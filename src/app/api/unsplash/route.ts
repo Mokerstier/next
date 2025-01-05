@@ -1,9 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { ColorId, createApi, OrderBy, SearchOrderBy } from "unsplash-js";
-
-const api = createApi({
-  accessKey: process.env.UNSPLASH_CLIENT_ID ?? "",
-});
+import { ColorId, OrderBy, SearchOrderBy } from "unsplash-js";
+import { unsplashApi } from "../utils";
 
 export async function GET(request: NextRequest) {
   const page = Number(request.nextUrl.searchParams.get("page"));
@@ -14,7 +11,7 @@ export async function GET(request: NextRequest) {
 
   // User performed a search request so the api call is slightly different '.search.getPhotos'
   if (query !== null) {
-    const data = await api.search
+    const data = await unsplashApi.search
       .getPhotos({
         query: query ?? "",
         perPage,
@@ -31,7 +28,7 @@ export async function GET(request: NextRequest) {
       });
     return NextResponse.json(data);
   } else {
-    const data = await api.photos
+    const data = await unsplashApi.photos
       .list({ page: page, perPage, orderBy })
       .then((result) => {
         if (result.errors) {
