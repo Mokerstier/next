@@ -9,7 +9,7 @@ const getData = async () => {
   return randomImage as UnsplashImage;
 };
 
-export const Home = async () => {
+export default async function Home() {
   const randomImage = await getData();
 
   return (
@@ -68,6 +68,4 @@ export const Home = async () => {
       )}
     </>
   );
-};
-
-export default Home;
+}
