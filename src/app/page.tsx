@@ -14,13 +14,15 @@ export default async function Home() {
   return (
     <>
       <header className="mt-10 md:mt-32 container p-4">
-        <h1 className="text-6xl mb-4">
+        <h1 className="text-4xl lg:text-6xl mb-4">
           Welcome to the unsplash photo searcher
         </h1>
         <p>Search for photos from unsplash</p>
         <p>
           Start browsing through the images here:{" "}
-          <Link href="/overview">overview</Link>
+          <Link className="text-white underline" href="/overview">
+            overview
+          </Link>
         </p>
       </header>
       <div className="absolute left-0 top-0 -z-10 min-h-dvh max-h-dvh object-cover w-full bg-gray-950/75 flex flex-col justify-center items-center">
@@ -34,21 +36,30 @@ export default async function Home() {
         height={1000}
       ></Image>
 
-      <footer className="container row-start-3 flex flex-col gap-2 flex-wrap items-start p-4 mt-auto pb-10">
-        <p>Do you like this image?</p>
-        <p>This image is created by: {randomImage.user.name}</p>
-        <p>
-          You can follow more of this users work here:{" "}
-          <Link href={randomImage.user.links.photos}>
-            unsplash user profile
-          </Link>
-        </p>
-        <p className="mx-auto">
-          © Created by{" "}
-          <Link href="https://heijde-app.vercel.app/">
-            Wouter van der Heijde
-          </Link>
-        </p>
+      <footer className="relative pb-20 pt-32 mt-auto w-full -mb-20 bg-gradient-to-b from-transparent to-blue">
+        <div className="absolute top-0 left-0 right-0 bottom-0 -skew-y-[8deg] h-[200%] bg-blue -z-10"></div>
+        <div className="container row-start-3 flex flex-col flex-wrap items-start p-4">
+          <p>Do you like this image?</p>
+          <p>This image is created by: {randomImage.user.name}</p>
+          <p>
+            You can follow more of this users work here:{" "}
+            <Link
+              className="text-white underline hover:text-slate-900 transition-colors"
+              href={randomImage.user.links.photos}
+            >
+              unsplash user profile
+            </Link>
+          </p>
+          <p className="mx-auto mt-20">
+            © Created by{" "}
+            <Link
+              className="text-white underline hover:text-slate-900 transition-colors"
+              href="https://heijde-app.vercel.app/"
+            >
+              Wouter van der Heijde
+            </Link>
+          </p>
+        </div>
       </footer>
     </>
   );
