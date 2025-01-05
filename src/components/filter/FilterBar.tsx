@@ -17,7 +17,7 @@ export const FilterBar = () => {
         <button
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Show filters"
-          className="absolute bg-background rounded-e-lg p-3 -right-[73px] lg:top-0 top-16 border-e border-white border-b border-t"
+          className="absolute bg-background rounded-e-lg p-3 -right-[73px] lg:top-12 top-16 border-e border-white border-b border-t"
         >
           <FilterIcon className="w-8 h-8" />
         </button>

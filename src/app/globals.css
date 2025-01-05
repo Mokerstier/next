@@ -34,6 +34,10 @@ body {
   }
 }
 
+.link {
+  @apply text-white underline hover:text-slate-900 transition-colors;
+}
+
 .loader {
   border-top-color: #3498db;
   animation: spin 1s ease-in-out infinite;

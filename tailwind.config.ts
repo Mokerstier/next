@@ -20,6 +20,10 @@ export default {
       },
       container: {
         center: true,
+        padding: {
+          sm: "20px",
+          lg: "40px",
+        },
       },
       keyframes: {
         "fade-in": {
