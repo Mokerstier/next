@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { ColorId, OrderBy, SearchOrderBy } from "unsplash-js";
-import { unsplashApi } from "../utils";
+import { unsplashApi } from "../../../utils/utils";
 
 export async function GET(request: NextRequest) {
   const page = Number(request.nextUrl.searchParams.get("page"));

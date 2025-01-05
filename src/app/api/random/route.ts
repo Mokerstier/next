@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { unsplashApi } from "../utils";
+import { unsplashApi } from "../../../utils/utils";
 
 export async function GET(_: NextRequest) {
   const data = await unsplashApi.photos.getRandom({}).then((result) => {
