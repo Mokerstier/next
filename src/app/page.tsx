@@ -36,7 +36,7 @@ export default async function Home() {
         height={1000}
       ></Image>
 
-      <footer className="relative pb-20 pt-32 mt-auto w-full -mb-20 bg-gradient-to-b from-transparent to-blue">
+      <footer className="relative pb-20 pt-32 mt-auto w-full -mb-20">
         <div className="absolute top-0 left-0 right-0 bottom-0 -skew-y-[8deg] h-[200%] bg-blue -z-10"></div>
         <div className="container row-start-3 flex flex-col flex-wrap items-start p-4">
           <p>Do you like this image?</p>
