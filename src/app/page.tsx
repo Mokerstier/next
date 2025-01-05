@@ -1,20 +1,16 @@
 import Link from "next/link";
 import Image from "next/image";
+import { UnsplashImage } from "@/models";
 
-export default async function Home() {
-  let randomImage = null;
+const getData = async () => {
+  const data = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/random`);
+  const randomImage = await data.json();
 
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/random`
-    );
-    if (!response.ok) {
-      throw new Error("Failed to fetch random image");
-    }
-    randomImage = await response.json();
-  } catch (error) {
-    console.error("Error fetching random image:", error);
-  }
+  return randomImage as UnsplashImage;
+};
+
+export const Home = async () => {
+  const randomImage = await getData();
 
   return (
     <>
@@ -72,4 +68,6 @@ export default async function Home() {
       )}
     </>
   );
-}
+};
+
+export default Home;
