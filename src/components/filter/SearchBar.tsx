@@ -31,7 +31,7 @@ export const SearchBar = () => {
     return () => {
       clearTimeout(handler);
     };
-  }, [query, setSearchQuery]);
+  }, [query, setSearchQuery, setLoading]);
 
   return (
     <>

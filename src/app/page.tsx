@@ -3,7 +3,7 @@ import Image from "next/image";
 import { UnsplashImage } from "@/models";
 
 const getData = async () => {
-  const data = await fetch(`${process.env.BASE_URL}/api/random`);
+  const data = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/random`);
   const randomImage = await data.json();
 
   return randomImage as UnsplashImage;

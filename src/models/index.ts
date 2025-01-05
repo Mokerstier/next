@@ -36,8 +36,8 @@ export interface CurrentUserCollection {
   published_at: string;
   last_collected_at: string;
   updated_at: string;
-  cover_photo: any;
-  user: any;
+  cover_photo: UnsplashImage;
+  user: User;
 }
 
 export interface ImageUrls {

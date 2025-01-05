@@ -5,7 +5,7 @@ export const Dialog = ({
   children,
   showDialog,
 }: {
-  children: ReactElement<any, any>[];
+  children: ReactElement[];
   showDialog: boolean;
 }) => {
   const dialog = useRef<HTMLDialogElement>(null);

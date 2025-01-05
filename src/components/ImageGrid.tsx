@@ -6,14 +6,21 @@ import { ErrorResponse, UnsplashImage } from "@/models";
 import { filterQueryBuilder } from "@/utils/filterQueryBuilder";
 import { isErrors } from "@/utils/typeCheck";
 import Image from "next/image";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { Loader } from "./loader/Loader";
 import { HeartIcon } from "./icons/HeartIcon";
 
 export const ImageGrid = () => {
   // Context State
-  const { color, searchQuery, showEmptyQueryError, loading, setLoading } =
-    useContext(FilterContext);
+  const {
+    color,
+    searchQuery,
+    showEmptyQueryError,
+    loading,
+    setLoading,
+    setSearchQuery,
+    setColor,
+  } = useContext(FilterContext);
 
   // Component State
   const [data, setData] = useState<UnsplashImage[] | ErrorResponse>([]);
@@ -25,17 +32,31 @@ export const ImageGrid = () => {
   const buttons = useRef(new Map());
   const currentPage = useRef(1);
 
-  const fetchImages = async () => {
+  const resetFilters = () => {
+    setSearchQuery(undefined);
+    setColor(null);
+  };
+
+  const fetchImages = useCallback(async () => {
+    // Break out the fetch if user slects a color without filling in a searchterm
+    if (color !== null && searchQuery === "") {
+      showEmptyQueryError(color !== null);
+      return;
+    }
+
     setLoading(true);
+
     const filterParams = filterQueryBuilder(
       currentPage.current,
       color,
       searchQuery
     );
+
     const response = await fetch(
-      `http://localhost:3000/api/unsplash?${filterParams}`
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/unsplash?${filterParams}`
     );
     const res = await response.json();
+
     setData((prevImages) => {
       const newArray = !isErrors(prevImages)
         ? [...prevImages, ...res]
@@ -46,8 +67,9 @@ export const ImageGrid = () => {
           self.findIndex((t) => t.id === image.id) === index
       );
     });
+
     setLoading(false);
-  };
+  }, [color, searchQuery, setLoading, showEmptyQueryError]);
 
   const handleImageClick = (image: UnsplashImage) => {
     setMainImage(image);
@@ -60,26 +82,16 @@ export const ImageGrid = () => {
   };
 
   useEffect(() => {
-    if (searchQuery === "") {
-      // We cant perform color search without query since its required
-      // So we notify the user
-      showEmptyQueryError(color !== null);
-      if (color !== null) {
-        return;
-      }
-    } else {
-      showEmptyQueryError(false);
+    if (color !== null && searchQuery !== "") {
+      setData([]);
+      currentPage.current = 1;
     }
-    // If filterQuery or colors change, clear current results and fetchImages with params
-    setData([]);
-    currentPage.current = 1;
-    fetchImages();
   }, [color, searchQuery]);
 
   useEffect(() => {
     setLoading(true);
     fetchImages();
-  }, []);
+  }, [fetchImages, setLoading]);
 
   useEffect(() => {
     if (buttons.current.size === 0) return;
@@ -110,12 +122,14 @@ export const ImageGrid = () => {
         className="container grid md:grid-cols-2 lg:grid-cols-4 gap-4 pb-10 mt-10"
       >
         <h1 className="text-3xl col-span-full">
-          Showing {data.length} photo's
+          Showing {data.length} photo&apos;s
         </h1>
         {data.length === 0 && !loading && (
           <p>
             No results.. try resetting filters:{" "}
-            <button className="p-4 border-blue">reset</button>
+            <button onClick={() => resetFilters} className="p-4 border-blue">
+              reset
+            </button>
           </p>
         )}
         {data.length > 0 &&
@@ -176,7 +190,7 @@ export const ImageGrid = () => {
             src={mainImage.urls.full}
             width={mainImage.width}
             height={mainImage.height}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain"
           />
         </Dialog>
       )}

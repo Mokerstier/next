@@ -23,7 +23,6 @@ export const Filter = () => {
       <div className="flex gap-2 flex-wrap">
         {FILTER_COLORS.map((colorId) => (
           <button
-            aria-selected={color === colorId}
             onClick={() => toggleFilter(colorId)}
             className={`rounded-md px-4 py-2 border  ${
               color === colorId
