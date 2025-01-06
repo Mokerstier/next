@@ -65,7 +65,7 @@ export const useFetchImages = (
 			setLoading(false);
 			return;
 		}
-		console.log(searchQuery);
+
 		setData((prevImages) => {
 			const newArray = !isErrors(prevImages)
 				? [...prevImages, ...res]
