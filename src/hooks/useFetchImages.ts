@@ -10,7 +10,6 @@ import {
 	SetStateAction,
 	useCallback,
 	useContext,
-	useRef,
 } from "react";
 
 export const useFetchImages = (
@@ -19,10 +18,15 @@ export const useFetchImages = (
 	currentPage: RefObject<number>,
 	setData: Dispatch<SetStateAction<ErrorResponse | UnsplashImage[]>>
 ) => {
-	const { color, searchQuery, showEmptyQueryError, setLoading } =
-		useContext(FilterContext);
+	const {
+		color,
+		searchQuery,
+		showEmptyQueryError,
+		setLoading,
+		totalResults,
+		setTotalResults,
+	} = useContext(FilterContext);
 	const { setToastContent, setShowToast } = useContext(ToastContext);
-	const resultCount = useRef(0);
 
 	return useCallback(async () => {
 		// Break out the fetch if user slects a color without filling in a searchterm
@@ -56,7 +60,7 @@ export const useFetchImages = (
 		// If response contains no images stop dataUpdates and show error
 		if (res.length === 0) {
 			setToastContent(
-				resultCount.current === 0
+				totalResults === 0
 					? "No results to display"
 					: "Your search returned no more results"
 			);
@@ -76,10 +80,9 @@ export const useFetchImages = (
 				(image, index, self) =>
 					self.findIndex((t) => t.id === image.id) === index
 			);
-
-			resultCount.current = deDuped.length;
 			return deDuped;
 		});
+
 		clearError(setFetchError, setStopObserving);
 		setLoading(false);
 	}, [

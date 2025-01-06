@@ -3,6 +3,7 @@ import { SearchBar } from "@/components/filter/SearchBar";
 import { Filter } from "@/components/filter/Filter";
 import { useState } from "react";
 import { SlidersIcon } from "../icons/SlidersIcon";
+import { ActiveFilters } from "./ActiveFilters";
 
 export const FilterBar = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -24,7 +25,7 @@ export const FilterBar = () => {
 			</div>
 			<SearchBar />
 			<Filter />
+			<ActiveFilters />
 		</aside>
 	);
 };
-

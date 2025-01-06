@@ -22,6 +22,7 @@ export const ImageGrid = () => {
 		setSearchQuery,
 		setColor,
 		showEmptyQueryError,
+		setTotalResults,
 	} = useContext(FilterContext);
 
 	// Component State
@@ -57,6 +58,7 @@ export const ImageGrid = () => {
 	useEffect(() => {
 		// When user is performing a search clear current data and reset page to 1
 		if (searchQuery !== "") {
+			setTotalResults(0);
 			setData([]);
 			currentPage.current = 1;
 		}
@@ -64,6 +66,14 @@ export const ImageGrid = () => {
 			showEmptyQueryError(false);
 		}
 	}, [searchQuery, color, showEmptyQueryError]);
+
+	useEffect(() => {
+		if (!isErrors(data)) {
+			setTotalResults(data.length);
+		} else {
+			setTotalResults(0);
+		}
+	}, [data]);
 
 	useEffect(() => {
 		fetchImages();
