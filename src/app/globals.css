@@ -6,48 +6,55 @@
 .root,
 #root,
 #docs-root {
-  --background: #ffffff;
-  --foreground: #0c1422;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: radial-gradient(circle at 50% 50%, #2f4861, #112333);
-    --foreground: #ededed;
-  }
+	--background: radial-gradient(circle at 50% 50%, #2f4861, #112333);
+	--foreground: #ededed;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  position: relative;
+	color: var(--foreground);
+	background: var(--background);
+	font-family: Oswald, Helvetica, sans-serif;
+	position: relative;
 
-  a {
-    @apply text-link hover:text-link-hover hover:underline transition-colors;
-  }
+	a {
+		@apply text-link hover:text-link-hover hover:underline transition-colors;
+	}
 
-  dialog {
-    &::backdrop {
-      background-color: rgba(0, 0, 0, 0.5);
-    }
-  }
+	dialog {
+		&::backdrop {
+			background-color: rgba(0, 0, 0, 0.5);
+		}
+	}
+}
+
+.navigation__link {
+	@apply text-white hover:text-blue hover:no-underline font-bold py-2 px-5 relative leading-8 block tracking-wider;
+
+	&.active {
+		@apply text-blue;
+
+		&::after {
+			content: "";
+			@apply absolute bottom-1 left-5 right-5 bg-blue h-px;
+		}
+	}
 }
 
 .link {
-  @apply text-white underline hover:text-slate-900 transition-colors;
+	@apply text-white underline hover:text-slate-900 transition-colors;
 }
 
 .loader {
-  border-top-color: #3498db;
-  animation: spin 1s ease-in-out infinite;
+	border-top-color: #3498db;
+	animation: spin 1s ease-in-out infinite;
 }
 
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
 }
+
