@@ -10,6 +10,7 @@ import {
 	SetStateAction,
 	useCallback,
 	useContext,
+	useRef,
 } from "react";
 
 export const useFetchImages = (
@@ -20,8 +21,8 @@ export const useFetchImages = (
 ) => {
 	const { color, searchQuery, showEmptyQueryError, setLoading } =
 		useContext(FilterContext);
-
 	const { setToastContent, setShowToast } = useContext(ToastContext);
+	const resultCount = useRef(0);
 
 	return useCallback(async () => {
 		// Break out the fetch if user slects a color without filling in a searchterm
@@ -54,7 +55,11 @@ export const useFetchImages = (
 
 		// If response contains no images stop dataUpdates and show error
 		if (res.length === 0) {
-			setToastContent("Your search returned no more results");
+			setToastContent(
+				resultCount.current === 0
+					? "No results to display"
+					: "Your search returned no more results"
+			);
 			setShowToast(true);
 			setStopObserving(true);
 			setLoading(false);
@@ -65,11 +70,15 @@ export const useFetchImages = (
 			const newArray = !isErrors(prevImages)
 				? [...prevImages, ...res]
 				: [...res];
+
 			// Filter duplicates for some reason unsplash sends duplicates when performing paginated requests
-			return newArray.filter(
+			const deDuped = newArray.filter(
 				(image, index, self) =>
 					self.findIndex((t) => t.id === image.id) === index
 			);
+
+			resultCount.current = deDuped.length;
+			return deDuped;
 		});
 		clearError(setFetchError, setStopObserving);
 		setLoading(false);

@@ -127,11 +127,7 @@ export const ImageGrid = () => {
 						<p>No results.. try resetting filters</p>
 						<button
 							onClick={() =>
-								resetFilters(
-									setSearchQuery,
-									setColor,
-									currentPage
-								)
+								resetFilters(setSearchQuery, setColor, currentPage)
 							}
 							className="py-2 px-4 rounded-lg mt-2 border-blue border bg-background"
 						>
@@ -146,17 +142,11 @@ export const ImageGrid = () => {
 					<header className="absolute top-0 left-0 w-full bg-background flex items-center justify-between p-4 text-white">
 						<h2 className="text-xl ">
 							{mainImage?.alt_description} by{" "}
-							<Link
-								className="link"
-								href={mainImage.user.links.portfolio}
-							>
+							<Link className="link" href={mainImage.user.links.portfolio}>
 								{mainImage.user.username}
 							</Link>
 						</h2>
-						<button
-							aria-label="Close dialog"
-							onClick={() => closeDialog()}
-						>
+						<button aria-label="Close dialog" onClick={() => closeDialog()}>
 							<CloseIcon className="h-6 w-6" />
 						</button>
 					</header>
@@ -172,4 +162,3 @@ export const ImageGrid = () => {
 		</>
 	);
 };
-
