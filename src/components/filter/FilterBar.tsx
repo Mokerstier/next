@@ -9,11 +9,11 @@ export const FilterBar = () => {
 
 	return (
 		<aside
-			className={`flex flex-col p-4 pb-10 bg-background z-30 w-[300px] min-h-dvh fixed top-0 transition-all border-r border-color-white ${
+			className={`flex flex-col p-4 pb-10 bg-background z-30 w-[300px] lg:border-none lg:bg-transparent lg:pt-16 lg:mt-10 min-h-dvh fixed top-0 lg:left-0 lg:w-1/3 transition-all border-r border-color-white ${
 				isOpen ? "left-0" : "-left-[300px]"
 			}`}
 		>
-			<div className="relative -z-10">
+			<div className="relative -z-10 lg:hidden">
 				<button
 					onClick={() => setIsOpen(!isOpen)}
 					aria-label="Show filters"

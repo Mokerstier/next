@@ -11,8 +11,10 @@ export const metadata: Metadata = {
 export default async function Overview() {
 	return (
 		<FilterProvider>
-			<FilterBar />
-			<ImageGrid />
+			<section className="grid lg:grid-cols-3 container relative">
+				<FilterBar />
+				<ImageGrid />
+			</section>
 		</FilterProvider>
 	);
 }
