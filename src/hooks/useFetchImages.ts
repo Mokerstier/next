@@ -51,7 +51,6 @@ export const useFetchImages = (
 
 		// If response contains no images stop dataUpdates and show error
 		if (res.length === 0) {
-			console.log(totalResults);
 			setToastContent(
 				totalResults === 0
 					? "No results to display"
