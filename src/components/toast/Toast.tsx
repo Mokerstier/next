@@ -20,7 +20,6 @@ export const Toast = () => {
 			<div className="absolute top-0 left-0 right-0 bottom-0 -skew-y-[8deg] h-[200%] bg-blue -z-10"></div>
 			<div className="container flex items-center justify-center font-bold text-xl lg:text-2xl">
 				{toastContent}
-				TEST
 			</div>
 		</section>
 	);

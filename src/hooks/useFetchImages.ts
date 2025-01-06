@@ -73,5 +73,16 @@ export const useFetchImages = (
 		});
 		clearError(setFetchError, setStopObserving);
 		setLoading(false);
-	}, [color, searchQuery, setLoading, showEmptyQueryError]);
+	}, [
+		color,
+		searchQuery,
+		setLoading,
+		showEmptyQueryError,
+		setData,
+		currentPage,
+		setFetchError,
+		setStopObserving,
+		setToastContent,
+		setShowToast,
+	]);
 };

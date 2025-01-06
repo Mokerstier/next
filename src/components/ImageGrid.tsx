@@ -68,7 +68,7 @@ export const ImageGrid = () => {
 		if (color === null) {
 			showEmptyQueryError(false);
 		}
-	}, [searchQuery, color]);
+	}, [searchQuery, color, showEmptyQueryError]);
 
 	useEffect(() => {
 		fetchImages();

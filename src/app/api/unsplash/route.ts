@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
 					}
 				});
 			return NextResponse.json(data);
-		} catch (_) {
+		} catch (error) {
 			return NextResponse.json({ message: "Rate limit exceeded" });
 		}
 	} else {
@@ -43,7 +43,7 @@ export async function GET(request: NextRequest) {
 					}
 				});
 			return NextResponse.json(data);
-		} catch (_) {
+		} catch (error) {
 			return NextResponse.json({ message: "Rate limit exceeded" });
 		}
 	}
