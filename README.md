@@ -33,6 +33,14 @@ Open http://localhost:3000 with your browser to see the result.
 
 **note this application requires a unsplash API-key to run**
 
+.env example
+
+```json
+    NEXT_PUBLIC_BASE_URL=http://localhost:3000
+    UNSPLASH_BASE_URL=https://api.unsplash.com
+    UNSPLASH_CLIENT_ID={YOUR_API_KEY_HERE}
+```
+
 ## Features
 
 - **Image Search**: Users can search for images using keywords.
