@@ -101,7 +101,7 @@ export const ImageGrid = () => {
 		<>
 			<section
 				ref={imageGrid}
-				className="container grid md:grid-cols-2 lg:grid-cols-4 gap-4 pb-10 pt-16 mt-10"
+				className="container grid md:grid-cols-2 lg:grid-cols-4 gap-4 pb-10 pt-16 mt-10 px-4"
 			>
 				{data.length > 0 &&
 					data.map((image, index) => (

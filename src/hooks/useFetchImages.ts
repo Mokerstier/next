@@ -1,4 +1,5 @@
 import { FilterContext } from "@/app/filter-provider";
+import { ToastContext } from "@/app/toast-provider";
 import { ErrorResponse, UnsplashImage } from "@/models";
 import { filterQueryBuilder } from "@/utils/filterQueryBuilder";
 import { clearError } from "@/utils/imageGridUtils";
@@ -19,6 +20,8 @@ export const useFetchImages = (
 ) => {
 	const { color, searchQuery, showEmptyQueryError, setLoading } =
 		useContext(FilterContext);
+
+	const { setToastContent, setShowToast } = useContext(ToastContext);
 
 	return useCallback(async () => {
 		// Break out the fetch if user slects a color without filling in a searchterm
@@ -43,14 +46,16 @@ export const useFetchImages = (
 		// If response contains an error message stop dataUpdates and show error
 		if (res.message) {
 			setStopObserving(true);
-			setFetchError(res.message);
+			setToastContent(res.message);
+			setShowToast(true);
 			setLoading(false);
 			return;
 		}
 
 		// If response contains no images stop dataUpdates and show error
 		if (res.length === 0) {
-			setFetchError("Your search returned no more results");
+			setToastContent("Your search returned no more results");
+			setShowToast(true);
 			setStopObserving(true);
 			setLoading(false);
 			return;
