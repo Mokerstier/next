@@ -1,9 +1,12 @@
 "use client";
 
+import { UnsplashImage, ErrorResponse } from "@/models";
 import { createContext, Dispatch, SetStateAction, useState } from "react";
 import { ColorId } from "unsplash-js";
 
 interface FilterContextType {
+	data: UnsplashImage[] | ErrorResponse;
+	setData: Dispatch<SetStateAction<UnsplashImage[] | ErrorResponse>>;
 	color: ColorId | null;
 	setColor: Dispatch<SetStateAction<ColorId | null>>;
 	searchQuery: string;
@@ -17,6 +20,8 @@ interface FilterContextType {
 }
 
 export const FilterContext = createContext<FilterContextType>({
+	data: [],
+	setData: () => {},
 	color: null,
 	setColor: () => {},
 	searchQuery: "",
@@ -39,6 +44,7 @@ export default function FilterProvider({
 	const [emptyQueryError, showEmptyQueryError] = useState<boolean>(false);
 	const [loading, setLoading] = useState<boolean>(false);
 	const [totalResults, setTotalResults] = useState<number>(0);
+	const [data, setData] = useState<UnsplashImage[] | ErrorResponse>([]);
 
 	return (
 		<FilterContext.Provider
@@ -53,6 +59,8 @@ export default function FilterProvider({
 				setLoading,
 				totalResults,
 				setTotalResults,
+				data,
+				setData,
 			}}
 		>
 			{children}

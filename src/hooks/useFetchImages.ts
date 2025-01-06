@@ -1,6 +1,5 @@
 import { FilterContext } from "@/app/filter-provider";
 import { ToastContext } from "@/app/toast-provider";
-import { ErrorResponse, UnsplashImage } from "@/models";
 import { filterQueryBuilder } from "@/utils/filterQueryBuilder";
 import { clearError } from "@/utils/imageGridUtils";
 import { isErrors } from "@/utils/typeCheck";
@@ -15,11 +14,16 @@ import {
 export const useFetchImages = (
 	setFetchError: Dispatch<SetStateAction<string | null>>,
 	setStopObserving: Dispatch<SetStateAction<boolean>>,
-	currentPage: RefObject<number>,
-	setData: Dispatch<SetStateAction<ErrorResponse | UnsplashImage[]>>
+	currentPage: RefObject<number>
 ) => {
-	const { color, searchQuery, showEmptyQueryError, setLoading, totalResults } =
-		useContext(FilterContext);
+	const {
+		color,
+		searchQuery,
+		showEmptyQueryError,
+		setLoading,
+		totalResults,
+		setData,
+	} = useContext(FilterContext);
 	const { setToastContent, setShowToast } = useContext(ToastContext);
 
 	return useCallback(async () => {
@@ -61,7 +65,7 @@ export const useFetchImages = (
 			setLoading(false);
 			return;
 		}
-
+		console.log(searchQuery);
 		setData((prevImages) => {
 			const newArray = !isErrors(prevImages)
 				? [...prevImages, ...res]

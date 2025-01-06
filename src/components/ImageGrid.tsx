@@ -2,7 +2,7 @@
 
 import { FilterContext } from "@/app/filter-provider";
 import { Dialog } from "@/components/dialog/Dialog";
-import { ErrorResponse, UnsplashImage } from "@/models";
+import { UnsplashImage } from "@/models";
 import { isErrors } from "@/utils/typeCheck";
 import Image from "next/image";
 import { useContext, useEffect, useRef, useState } from "react";
@@ -10,8 +10,8 @@ import { Loader } from "./loader/Loader";
 import Link from "next/link";
 import { CloseIcon } from "./icons/CloseIcon";
 import { useFetchImages } from "@/hooks/useFetchImages";
-import { resetFilters } from "@/utils/imageGridUtils";
 import { ImageThumb } from "./cards/ImageThumb";
+import { resetFilters } from "@/utils/imageGridUtils";
 
 export const ImageGrid = () => {
 	// Context State
@@ -24,10 +24,11 @@ export const ImageGrid = () => {
 		showEmptyQueryError,
 		setTotalResults,
 		setLoading,
+		data,
+		setData,
 	} = useContext(FilterContext);
 
 	// Component State
-	const [data, setData] = useState<UnsplashImage[] | ErrorResponse>([]);
 	const [mainImage, setMainImage] = useState<UnsplashImage | null>(null);
 	const [showDialog, setShowDialog] = useState(false);
 	const [stopObserving, setStopObserving] = useState(false);
@@ -42,9 +43,13 @@ export const ImageGrid = () => {
 	const fetchImages = useFetchImages(
 		setFetchError,
 		setStopObserving,
-		currentPage,
-		setData
+		currentPage
 	);
+
+	const handleReset = () => {
+		setData([]);
+		resetFilters(setSearchQuery, setColor, currentPage);
+	};
 
 	const handleImageClick = (image: UnsplashImage) => {
 		setMainImage(image);
@@ -66,7 +71,7 @@ export const ImageGrid = () => {
 		if (color === null) {
 			showEmptyQueryError(false);
 		}
-	}, [searchQuery, color, showEmptyQueryError, setTotalResults]);
+	}, [searchQuery, color, showEmptyQueryError, setTotalResults, setData]);
 
 	useEffect(() => {
 		if (!isErrors(data)) {
@@ -139,9 +144,7 @@ export const ImageGrid = () => {
 					<div className="col-span-full text-center">
 						<p>No results.. try resetting filters</p>
 						<button
-							onClick={() =>
-								resetFilters(setSearchQuery, setColor, currentPage)
-							}
+							onClick={() => handleReset()}
 							className="py-2 px-4 rounded-lg mt-2 border-blue border bg-background"
 						>
 							reset

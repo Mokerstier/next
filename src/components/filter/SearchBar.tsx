@@ -5,10 +5,10 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { SearchIcon } from "../icons/SearchIcon";
 
 export const SearchBar = () => {
-	const { emptyQueryError, setSearchQuery, setLoading } =
+	const { emptyQueryError, setSearchQuery, setLoading, searchQuery, setData } =
 		useContext(FilterContext);
 
-	const [query, setQuery] = useState("");
+	const [query, setQuery] = useState(searchQuery);
 
 	const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -33,6 +33,13 @@ export const SearchBar = () => {
 		};
 	}, [query, setSearchQuery, setLoading]);
 
+	useEffect(() => {
+		if (inputRef.current) {
+			inputRef.current.value = searchQuery;
+			setData([]);
+		}
+	}, [searchQuery, setData]);
+
 	return (
 		<>
 			<h3 className="my-2 font-semibold">Search on keywords</h3>
@@ -56,7 +63,7 @@ export const SearchBar = () => {
 					type="text"
 					name="query"
 					id="query"
-					placeholder="Search photos by keyword"
+					placeholder="Search photos by keywords"
 				/>
 				{emptyQueryError && (
 					<span className="text-orange-400 absolute -bottom-8 left-0 animate-fade-in">
