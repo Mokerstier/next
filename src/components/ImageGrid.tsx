@@ -5,11 +5,10 @@ import { Dialog } from "@/components/dialog/Dialog";
 import { ErrorResponse, UnsplashImage } from "@/models";
 import { isErrors } from "@/utils/typeCheck";
 import Image from "next/image";
-import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Loader } from "./loader/Loader";
 import Link from "next/link";
 import { CloseIcon } from "./icons/CloseIcon";
-import debounce from "lodash.debounce";
 import { useFetchImages } from "@/hooks/useFetchImages";
 import { resetFilters } from "@/utils/imageGridUtils";
 import { ImageThumb } from "./cards/ImageThumb";
@@ -45,10 +44,6 @@ export const ImageGrid = () => {
 		setData
 	);
 
-	const debouncedFetchImages = useCallback(debounce(fetchImages, 300), [
-		fetchImages,
-	]);
-
 	const handleImageClick = (image: UnsplashImage) => {
 		setMainImage(image);
 		setShowDialog(true);
@@ -80,7 +75,7 @@ export const ImageGrid = () => {
 		const observer = new IntersectionObserver((entries) => {
 			if (entries[0].isIntersecting) {
 				currentPage.current += 1;
-				debouncedFetchImages();
+				fetchImages();
 			}
 		});
 
@@ -101,7 +96,7 @@ export const ImageGrid = () => {
 		<>
 			<section
 				ref={imageGrid}
-				className="lg:col-span-2 lg:col-start-2 grid md:grid-cols-2 lg:grid-cols-4 gap-4 pb-10 pt-16 mt-10 px-4"
+				className="lg:col-span-3 lg:col-start-2 grid md:grid-cols-2 lg:grid-cols-4 gap-4 pb-10 pt-16 mt-10 px-4"
 			>
 				{data.length > 0 &&
 					data.map((image, index) => (
