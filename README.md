@@ -50,3 +50,18 @@ Open http://localhost:3000 with your browser to see the result.
 - **Responsive Design**: The application is fully responsive and works on all device sizes.
 - **Loading Indicator**: A loading spinner is displayed while images are being fetched.
 - **Error Handling**: Proper error handling is implemented to display error messages when the API request fails.
+
+## Infrastructure
+
+### CI/CD with Vercel
+
+This project uses Vercel for continuous integration and continuous deployment (CI/CD). Vercel provides a seamless deployment experience for Next.js applications, ensuring that your changes are automatically built and deployed whenever you push to the main branch.
+
+Example of pull request with automatic deploy
+![Example of pull request with automatic deploy](image.png)
+
+### How it works
+
+Automatic Deploys: Every push to the main branch triggers a new deployment. Vercel automatically builds and deploys your application, making it available at your Vercel domain.
+Preview Deployments: For every pull request, Vercel creates a unique preview URL. This allows you to test and review changes in an isolated environment before merging them into the main branch.
+Environment Variables: Vercel supports environment variables, which can be configured in the Vercel dashboard. Ensure that your Unsplash API key and other sensitive information are securely stored as environment variables.
