@@ -18,14 +18,8 @@ export const useFetchImages = (
 	currentPage: RefObject<number>,
 	setData: Dispatch<SetStateAction<ErrorResponse | UnsplashImage[]>>
 ) => {
-	const {
-		color,
-		searchQuery,
-		showEmptyQueryError,
-		setLoading,
-		totalResults,
-		setTotalResults,
-	} = useContext(FilterContext);
+	const { color, searchQuery, showEmptyQueryError, setLoading, totalResults } =
+		useContext(FilterContext);
 	const { setToastContent, setShowToast } = useContext(ToastContext);
 
 	return useCallback(async () => {
@@ -34,8 +28,6 @@ export const useFetchImages = (
 			showEmptyQueryError(color !== null);
 			return;
 		}
-
-		setLoading(true);
 
 		const filterParams = filterQueryBuilder(
 			currentPage.current,
@@ -59,6 +51,7 @@ export const useFetchImages = (
 
 		// If response contains no images stop dataUpdates and show error
 		if (res.length === 0) {
+			console.log(totalResults);
 			setToastContent(
 				totalResults === 0
 					? "No results to display"
@@ -96,5 +89,6 @@ export const useFetchImages = (
 		setStopObserving,
 		setToastContent,
 		setShowToast,
+		totalResults,
 	]);
 };

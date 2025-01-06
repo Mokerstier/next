@@ -23,6 +23,7 @@ export const ImageGrid = () => {
 		setColor,
 		showEmptyQueryError,
 		setTotalResults,
+		setLoading,
 	} = useContext(FilterContext);
 
 	// Component State
@@ -65,7 +66,7 @@ export const ImageGrid = () => {
 		if (color === null) {
 			showEmptyQueryError(false);
 		}
-	}, [searchQuery, color, showEmptyQueryError]);
+	}, [searchQuery, color, showEmptyQueryError, setTotalResults]);
 
 	useEffect(() => {
 		if (!isErrors(data)) {
@@ -73,17 +74,14 @@ export const ImageGrid = () => {
 		} else {
 			setTotalResults(0);
 		}
-	}, [data]);
+	}, [data, setTotalResults]);
 
 	useEffect(() => {
-		fetchImages();
-	}, [fetchImages]);
-
-	useEffect(() => {
-		if (stopObserving) return;
+		if (stopObserving || loading) return;
 		if (buttons.current.size === 0) return;
 		const observer = new IntersectionObserver((entries) => {
 			if (entries[0].isIntersecting) {
+				setLoading(true);
 				currentPage.current += 1;
 				fetchImages();
 			}
@@ -98,6 +96,11 @@ export const ImageGrid = () => {
 		};
 	});
 
+	useEffect(() => {
+		setLoading(true);
+		fetchImages();
+	}, [fetchImages, setLoading]);
+
 	if (isErrors(data)) {
 		return <div>Error: {data.errors.join(", ")}</div>;
 	}
@@ -106,7 +109,7 @@ export const ImageGrid = () => {
 		<>
 			<section
 				ref={imageGrid}
-				className="lg:col-span-3 lg:col-start-2 grid md:grid-cols-2 lg:grid-cols-4 gap-4 pb-10 pt-16 mt-10 px-4"
+				className="lg:col-span-3 lg:col-start-2 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 pb-10 pt-16 mt-10 px-4"
 			>
 				{data.length > 0 &&
 					data.map((image, index) => (

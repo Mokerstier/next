@@ -6,8 +6,8 @@ import { ColorId } from "unsplash-js";
 interface FilterContextType {
 	color: ColorId | null;
 	setColor: Dispatch<SetStateAction<ColorId | null>>;
-	searchQuery: string | undefined;
-	setSearchQuery: Dispatch<SetStateAction<string | undefined>>;
+	searchQuery: string;
+	setSearchQuery: Dispatch<SetStateAction<string>>;
 	emptyQueryError: boolean;
 	showEmptyQueryError: Dispatch<SetStateAction<boolean>>;
 	loading: boolean;
@@ -35,7 +35,7 @@ export default function FilterProvider({
 	children: React.ReactNode;
 }) {
 	const [color, setColor] = useState<ColorId | null>(null);
-	const [searchQuery, setSearchQuery] = useState<string | undefined>();
+	const [searchQuery, setSearchQuery] = useState<string>("");
 	const [emptyQueryError, showEmptyQueryError] = useState<boolean>(false);
 	const [loading, setLoading] = useState<boolean>(false);
 	const [totalResults, setTotalResults] = useState<number>(0);
