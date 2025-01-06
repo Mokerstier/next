@@ -16,7 +16,10 @@ export const ImageThumb: React.FC<ImageThumbProps> = ({ image, index }) => {
 				height={200}
 				priority={index < 7}
 				src={image.urls.thumb ?? image.urls.small}
-				alt={image.alt_description}
+				alt={
+					image.alt_description ??
+					"No alternative description provided"
+				}
 			></Image>
 			<div className="absolute min-h-min w-full left-[calc(100%-68px)] lg:left-[calc(100%-52px)] group-hover:left-0 transition-[left] bottom-0 h-1/5 bg-gradient-to-tr from-blue to-background/90  flex gap-2 items-center justify-between rounded-s-2xl p-2">
 				<Image

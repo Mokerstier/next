@@ -10,8 +10,8 @@ export default {
 		extend: {
 			animation: {
 				"fade-in": "fade-in 1s ease-in-out",
-				"from-bottom-explicit": "from-bottom-explicit 0.5s ease-in-out",
-				"out-bottom": "out-bottom 0.5s 2s ease-in-out",
+				"from-bottom-explicit":
+					"from-bottom-explicit 3.5s ease-in-out forwards",
 			},
 			colors: {
 				background: "#0c1422",
@@ -33,12 +33,10 @@ export default {
 					"100%": { opacity: "1" },
 				},
 				"from-bottom-explicit": {
-					"0%": { transform: "translateY(100%)" },
-					"100%": { transform: "translateY(0)" },
-				},
-				"out-bottom": {
-					"0%": { transform: "translateY(0)" },
-					"100%": { transform: "translateY(100%)" },
+					"0%": { transform: "translateY(150%)" },
+					"10%": { transform: "translateY(0)" },
+					"80%": { transform: "translateY(0)" },
+					"100%": { transform: "translateY(150%)" },
 				},
 			},
 		},

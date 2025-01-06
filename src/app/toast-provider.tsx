@@ -18,7 +18,7 @@ interface ToastContextType {
 export const ToastContext = createContext<ToastContextType>({
 	toastContent: null,
 	setToastContent: () => {},
-	showToast: false,
+	showToast: true,
 	setShowToast: () => {},
 });
 
